@@ -1,8 +1,8 @@
 ### Membros do Grupo (TechFive)
 
--Thais Bonifácio Alves
--Giovanni Barboza Rizzardo
--Fernando Nunes José Leitão
--Allan Cardoso Messias
--Renato Hideo Kuramoto
+<p>Thais Bonifácio Alves</p>
+<p>Giovanni Barboza Rizzardo</p>
+<p>Fernando Nunes José Leitão</p>
+<p>Allan Cardoso Messias</p>
+<p>Renato Hideo Kuramoto</p>
 
