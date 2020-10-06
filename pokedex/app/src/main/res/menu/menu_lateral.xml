@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_pokedex"
+            android:icon="@drawable/ic_nav_pokedex"
+            android:title="Minha Pokedex"
+            android:checked="true"/>
+        <item
+            android:id="@+id/nav_ginasios"
+            android:icon="@drawable/ic_buscar_white"
+            android:title="Ginásios"
+            android:checked="true"/>
+    </group>
+</menu>

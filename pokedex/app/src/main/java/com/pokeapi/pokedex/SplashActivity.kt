@@ -12,7 +12,6 @@ import android.widget.ImageView
 class SplashActivity : AppCompatActivity() {
 
     private  lateinit var image:ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
         val maxSplashTime: Long = 5000
 
         Handler().postDelayed({
-            startActivity(Intent(this, AppActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         },maxSplashTime)
     }

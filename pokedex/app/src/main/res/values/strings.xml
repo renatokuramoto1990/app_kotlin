@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="label_login">Usuário</string>
+    <string name="label_password">Senha</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="action_buscar">Buscar Pokemon</string>
+    <string name="action_atualizar">Atualizar</string>
+    <string name="action_configurar">Configuração</string>
 </resources>
