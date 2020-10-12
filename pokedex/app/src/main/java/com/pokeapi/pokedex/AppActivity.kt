@@ -65,6 +65,12 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_pokedex -> {
                 Toast.makeText(this, "Clicou Pokedex", Toast.LENGTH_SHORT).show()
             }
+            R.id.nav_ginasios -> {
+                Toast.makeText(this, "Clicou em Ginásios", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_sair -> {
+                finish()
+            }
         }
         layoutMenuLateral.closeDrawer(GravityCompat.START)
         return true
