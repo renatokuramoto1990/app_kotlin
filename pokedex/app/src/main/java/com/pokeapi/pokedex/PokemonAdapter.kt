@@ -28,7 +28,6 @@ class PokemonAdapter (
             cardView = view.findViewById<CardView>(R.id.card_pokemons)
 
         }
-
     }
 
     override fun getItemCount() = this.pokemons.size

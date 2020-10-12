@@ -8,4 +8,5 @@
     <string name="action_buscar">Buscar Pokemon</string>
     <string name="action_atualizar">Atualizar</string>
     <string name="action_configurar">Configuração</string>
+    <string name="label_config">Alterar usuário e senha</string>
 </resources>
