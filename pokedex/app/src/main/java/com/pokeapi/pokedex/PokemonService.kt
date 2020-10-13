@@ -2,25 +2,25 @@ package com.pokeapi.pokedex
 
 import android.content.Context
 import android.util.Log
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 object PokemonService {
 
     val host = "https://pokeapi.co/api/v2/"
     val TAG = "PokeAPI"
 
-    fun getPokemons (context: Context): List<Pokemon> {
-        var pokemon = ArrayList<Pokemon>()
-        val url = "$host/pokemon"
-        val json = HttpHelper.get(url)
-        pokemon = parserJson(json)
-        Log.d(TAG, pokemon.toString())
-        return pokemon
+
+    fun getPokemons2 (context: Context): List<Pokemon> {
+        val pokemons = mutableListOf<Pokemon>()
+
+        for (i in 1..10) {
+            val poke = Pokemon()
+            poke.url = "Poke URL $i"
+            poke.nome = "Pokemon $i"
+            poke.foto = "https://cdn.bulbagarden.net/upload/thumb/7/7e/006Charizard.png/1200px-006Charizard.png"
+            pokemons.add(poke)
+        }
+
+        return pokemons
     }
 
-    inline fun <reified T> parserJson(json: String): T {
-        val type = object : TypeToken<T>(){}.type
-        return Gson().fromJson<T>(json, type)
-    }
 }

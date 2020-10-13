@@ -22,8 +22,6 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     private val context: Context get() = this
     private var pokemon = listOf<Pokemon>()
-    private var REQUEST_CADASTRO = 1
-    private var REQUEST_REMOVE= 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +47,23 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         recyclerPokedex?.layoutManager = LinearLayoutManager(context)
         recyclerPokedex?.itemAnimator = DefaultItemAnimator()
         recyclerPokedex?.setHasFixedSize(true)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        taskPokemom()
+    }
 
+    fun taskPokemom() {
+        this.pokemon = PokemonService.getPokemons2(context)
+        recyclerPokedex?.adapter = PokemonAdapter(pokemon) {onClickPokemon(it)}
+    }
+
+    fun onClickPokemon(pokemon: Pokemon) {
+        Toast.makeText(context, "Clicou no Pokemon ${pokemon.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, PokemonActivity::class.java)
+        //intent.putExtra("pokemon", pokemon)
+        startActivity(intent)
     }
 
     private fun configuraMenuLateral() {
