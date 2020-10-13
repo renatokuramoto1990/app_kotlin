@@ -62,7 +62,7 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     fun onClickPokemon(pokemon: Pokemon) {
         Toast.makeText(context, "Clicou no Pokemon ${pokemon.nome}", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, PokemonActivity::class.java)
-        //intent.putExtra("pokemon", pokemon)
+        intent.putExtra("pokemon", pokemon)
         startActivity(intent)
     }
 

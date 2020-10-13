@@ -14,7 +14,6 @@ object PokemonService {
 
         for (i in 1..10) {
             val poke = Pokemon()
-            poke.url = "Poke URL $i"
             poke.nome = "Pokemon $i"
             poke.foto = "https://cdn.bulbagarden.net/upload/thumb/7/7e/006Charizard.png/1200px-006Charizard.png"
             pokemons.add(poke)
