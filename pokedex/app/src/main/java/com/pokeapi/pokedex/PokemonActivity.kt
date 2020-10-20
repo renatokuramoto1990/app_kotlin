@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_pokemon.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class PokemonActivity : AppCompatActivity() {
     var pokemon: Pokemon? = null
@@ -25,11 +23,14 @@ class PokemonActivity : AppCompatActivity() {
 
         pokemon = intent.getSerializableExtra("pokemon") as Pokemon
 
-        supportActionBar?.title = pokemon?.nome
+        supportActionBar?.title = pokemon?.name?.toUpperCase()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        nomePokemonInfo.text = pokemon?.nome
-        Picasso.with(this).load(pokemon?.foto).fit().into(imagemPokemonInfo,
+        nomePokemon.text = "Pokemon - ${pokemon?.name?.toUpperCase()}"
+        habilidadesPokemon.text = "Habilidades\n*${pokemon?.abilities?.capitalize()}"
+        tiposPokemon.text = "Tipo do Pokemon\n*${pokemon?.types?.capitalize()}"
+        pesoPokemon.text = "Peso\n*${pokemon?.weight?.capitalize()}"
+        Picasso.with(this).load(pokemon?.image).fit().into(imagemPokemonInfo,
             object : com.squareup.picasso.Callback {
                 override fun onSuccess() {}
 
@@ -44,4 +45,5 @@ class PokemonActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

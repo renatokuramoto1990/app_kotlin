@@ -55,12 +55,25 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
     fun taskPokemom() {
-        this.pokemon = PokemonService.getPokemons2(context)
-        recyclerPokedex?.adapter = PokemonAdapter(pokemon) {onClickPokemon(it)}
+        Thread {
+            this.pokemon = PokemonService.getPokemons(context)
+            runOnUiThread {
+                recyclerPokedex?.adapter = PokemonAdapter(pokemon) { onClickPokemon(it) }
+            }
+        }.start()
+    }
+
+    fun taskSearchPokemon(url: String) {
+        Thread {
+            this.pokemon = PokemonService.getSearchPokemon(context, url)
+            runOnUiThread {
+                recyclerPokedex?.adapter = PokemonAdapter(pokemon) { onClickPokemon(it) }
+            }
+        }.start()
     }
 
     fun onClickPokemon(pokemon: Pokemon) {
-        Toast.makeText(context, "Clicou no Pokemon ${pokemon.nome}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Clicou no Pokemon ${pokemon.name}", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, PokemonActivity::class.java)
         intent.putExtra("pokemon", pokemon)
         startActivity(intent)
@@ -94,12 +107,17 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // ação enquanto está digitando
+                if (newText == "") {
+                    return false
+                }
+                val url = "https://pokeapi.co/api/v2/pokemon/${newText}"
+                taskSearchPokemon(url)
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                // ação  quando terminou de buscar e enviou
+                val url = "https://pokeapi.co/api/v2/pokemon/${query}"
+                taskSearchPokemon(url)
                 return false
             }
         })
