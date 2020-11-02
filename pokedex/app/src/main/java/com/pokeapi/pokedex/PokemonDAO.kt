@@ -7,15 +7,15 @@ import androidx.room.Query
 
 @Dao
 interface PokemonDAO {
-    @Query("SELECT * FROM  pokemons where id = :id")
-    fun getById(id: Long): Pokemon?
+    @Query("SELECT * FROM  pokedex where id = :id")
+    fun getById(id: Long): Pokedex?
 
-    @Query("SELECT * FROM pokemons")
-    fun findAll(): List<Pokemon>
+    @Query("SELECT * FROM pokedex")
+    fun findAll(): List<Pokedex>
 
     @Insert
-    fun insert(pokemon: Pokemon)
+    fun insert(pokemon: Pokedex)
 
     @Delete
-    fun delete(pokemon: Pokemon)
+    fun delete(pokemon: Pokedex)
 }

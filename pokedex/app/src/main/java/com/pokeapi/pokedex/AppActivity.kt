@@ -89,7 +89,8 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_pokedex -> {
-                Toast.makeText(this, "Clicou Pokedex", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, MyPokedexActivity::class.java)
+                startActivityForResult(intent, 1)
             }
             R.id.nav_ginasios -> {
                 Toast.makeText(this, "Clicou em Ginásios", Toast.LENGTH_SHORT).show()
@@ -109,6 +110,8 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText == "") {
                     return false
+                } else if (newText > "721") {
+                    return false
                 }
                 val url = "https://pokeapi.co/api/v2/pokemon/${newText}"
                 taskSearchPokemon(url)
@@ -116,6 +119,9 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
+                if (query > "721") {
+                    return false
+                }
                 val url = "https://pokeapi.co/api/v2/pokemon/${query}"
                 taskSearchPokemon(url)
                 return false
@@ -130,7 +136,7 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         if (id == R.id.action_buscar) {
             Toast.makeText(context, "Clicou em Buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
-            Toast.makeText(context, "Clicou em Atualizar", Toast.LENGTH_LONG).show()
+            taskPokemom()
         } else if (id == R.id.action_config) {
             val intent = Intent(context, ConfigActivity::class.java)
             startActivityForResult(intent, 1)

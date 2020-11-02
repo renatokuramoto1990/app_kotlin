@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.prefs.PreferenceChangeEvent
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,13 +23,28 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
+        inputLogin.setText(Prefs.getString("usuario"))
+        inputPassword.setText(Prefs.getString("senha"))
+        checkBoxLembrar.isChecked = Prefs.getBoolean("lembrar")
+
         btnLogin.setOnClickListener{
             val usuario = inputLogin.text.toString()
             val senha = inputPassword.text.toString()
 
+            Prefs.setBoolean("lembrar", checkBoxLembrar.isChecked)
+
             if (usuario == "aluno" && senha == "impacta") {
                 val intent = Intent(context, AppActivity::class.java)
                 val params = Bundle()
+
+                if (checkBoxLembrar.isChecked) {
+                    Prefs.setString("usuario", usuario)
+                    Prefs.setString("senha", senha)
+                } else {
+                    Prefs.setString("usuario", "")
+                    Prefs.setString("senha", "")
+                }
+
                 params.putString("username", usuario)
                 intent.putExtras(params)
                 startActivityForResult(intent, 1)

@@ -12,6 +12,11 @@ object PokemonService {
     val TAG = "PokeAPI"
     val TAG_RESULT = "RESULT"
 
+    fun getPokemonsPokedex (context: Context): List<Pokedex> {
+        val dao = DatabaseManager.getPokemonDAO()
+        return dao.findAll()
+    }
+
 
     fun getPokemons (context: Context): List<Pokemon> {
         val pokemons = mutableListOf<Pokemon>()
