@@ -1,5 +1,6 @@
 package com.pokeapi.pokedex
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 class PokemonActivity : AppCompatActivity() {
+    private val context: Context get() = this
     var pokemon: Pokemon? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,8 @@ class PokemonActivity : AppCompatActivity() {
 
             Thread {
                 PokemonService.save(poke)
+                val intent = Intent(context, MyPokedexActivity::class.java)
+                startActivityForResult(intent, 1)
             }.start()
 
         }
