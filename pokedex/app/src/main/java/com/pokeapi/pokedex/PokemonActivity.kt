@@ -76,6 +76,7 @@ class PokemonActivity : AppCompatActivity() {
 
             Thread {
                 PokemonService.save(poke)
+                finish()
                 val intent = Intent(context, MyPokedexActivity::class.java)
                 startActivityForResult(intent, 1)
             }.start()
