@@ -14,8 +14,7 @@ import com.squareup.picasso.Picasso
 
 
 class PokedexAdapter(
-    var pokemons: List<Pokedex>,
-    val onClick: (Pokedex) -> Unit
+    var pokemons: List<Pokedex>
 ): RecyclerView.Adapter<PokedexAdapter.MyPokemonsViewHolder>() {
 
     class MyPokemonsViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -51,9 +50,9 @@ class PokedexAdapter(
     override fun onBindViewHolder(holder: MyPokemonsViewHolder, position: Int) {
         val context = holder.itemView.context
 
-
         val pokemon = pokemons[position]
 
+        Log.d("POK", pokemon.id)
         holder.cardNome.text = "${pokemon.name.toUpperCase()} - ${pokemon.id}"
         holder.cardProgress.visibility = View.VISIBLE
 
@@ -68,7 +67,5 @@ class PokedexAdapter(
                     holder.cardProgress.visibility = View.GONE
                 }
             })
-
-        holder.itemView.setOnClickListener {onClick(pokemon)}
     }
 }

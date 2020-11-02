@@ -3,6 +3,7 @@ package com.pokeapi.pokedex
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
@@ -11,6 +12,8 @@ import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_app.*
 import kotlinx.android.synthetic.main.activity_pokemon.*
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class PokemonActivity : AppCompatActivity() {
     var pokemon: Pokemon? = null
@@ -52,17 +55,22 @@ class PokemonActivity : AppCompatActivity() {
         }
 
         btnSalvarPokemon.setOnClickListener {
-            val name: String = inputPokemonName.text.toString()
-            if (name != "Apelido do Pokemon") {
-                val nomePokemon = nome
+            var nomePokemon = ""
+            val name = inputPokemonName.text.toString()
+            if (name == "Apelido do Pokemon") {
+                nomePokemon = nome!!
+            } else {
+                nomePokemon = name
             }
             val poke = Pokedex()
-            poke.id = id.toString()
+            poke.id = Random.nextInt(1, 99999999999.toInt()).toString()
             poke.name = nomePokemon.toString()
             poke.abilities = habilidades.toString()
             poke.types = tipos.toString()
             poke.weight = peso.toString()
             poke.image = imagem.toString()
+
+            Log.d("POK", nomePokemon)
 
             Thread {
                 PokemonService.save(poke)

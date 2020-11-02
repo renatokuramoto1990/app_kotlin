@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_app.layoutMenuLateral
 import kotlinx.android.synthetic.main.activity_my_pokedex.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class MyPokedexActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MyPokedexActivity : AppCompatActivity() {
 
     private val context: Context get() = this
     private var pokemon = listOf<Pokedex>()
@@ -32,9 +32,6 @@ class MyPokedexActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         setContentView(R.layout.activity_my_pokedex)
-
-        configuraMenuLateral()
-
 
         setSupportActionBar(toolbar_view)
         supportActionBar?.title = "Minha Pokedex"
@@ -55,23 +52,9 @@ class MyPokedexActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         Thread {
             this.pokemon = PokemonService.getPokemonsPokedex(context)
             runOnUiThread {
-                recyclerMyPokedex?.adapter = PokedexAdapter(pokemon) { onClickPokemon(it) }
+                recyclerMyPokedex?.adapter = PokedexAdapter(pokemon)
             }
         }.start()
-    }
-
-    fun onClickPokemon(pokemon: Pokedex) {
-        Toast.makeText(context, "Clicou no Pokemon ${pokemon.name}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, PokemonActivity::class.java)
-        intent.putExtra("pokemon", pokemon)
-        startActivity(intent)
-    }
-
-    private fun configuraMenuLateral() {
-        var toogle = ActionBarDrawerToggle(this, layoutMenuLateral, toolbar_view, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        layoutMenuLateral.addDrawerListener(toogle)
-        toogle.syncState()
-        menu_lateral_my_pokedex.setNavigationItemSelectedListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,22 +63,5 @@ class MyPokedexActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             finish()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_pokedex -> {
-                val intent = Intent(context, MyPokedexActivity::class.java)
-                startActivityForResult(intent, 1)
-            }
-            R.id.nav_ginasios -> {
-                Toast.makeText(this, "Clicou em Ginásios", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_sair -> {
-                finish()
-            }
-        }
-        layoutMenuLateral.closeDrawer(GravityCompat.START)
-        return true
     }
 }
