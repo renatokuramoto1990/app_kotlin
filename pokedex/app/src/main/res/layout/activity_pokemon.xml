@@ -76,6 +76,20 @@
                         android:layout_margin="8dp"/>
 
                 </ScrollView>
+
+                <EditText
+                    android:id="@+id/inputPokemonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Apelido do Pokemon" />
+
+                <Button
+                    android:id="@+id/btnSalvarPokemon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salvar na Pokedex" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

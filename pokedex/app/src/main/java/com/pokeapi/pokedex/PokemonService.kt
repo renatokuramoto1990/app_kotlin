@@ -123,8 +123,9 @@ object PokemonService {
     }
 
 
-    fun save(pokemon: Pokemon) {
-        HttpHelper.post("$host/pokemon", GsonBuilder().create().toJson(pokemon))
+    fun save(pokemon: Pokedex) {
+        val dao = DatabaseManager.getPokemonDAO()
+        dao.insert(pokemon)
     }
 
     inline fun <reified T> parserJson(json: String) : T {
