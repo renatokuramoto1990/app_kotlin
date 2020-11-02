@@ -131,8 +131,4 @@ object PokemonService {
         val type = object : TypeToken<T>(){}.type
         return Gson().fromJson<T>(json, type)
     }
-
-    inline fun <reified T> parseResult(json: String) : List<SerializerResult> {
-        return Gson().fromJson(json, Array<SerializerResult>::class.java).toList()
-    }
 }

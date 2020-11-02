@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 class Pokedex : Serializable{
 
     @PrimaryKey
-    var id:Long = 0
+    var id = ""
     var name = ""
     var abilities = ""
     var types = ""

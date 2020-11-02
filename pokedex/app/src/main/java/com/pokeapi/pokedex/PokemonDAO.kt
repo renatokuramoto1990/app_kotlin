@@ -7,9 +7,6 @@ import androidx.room.Query
 
 @Dao
 interface PokemonDAO {
-    @Query("SELECT * FROM  pokedex where id = :id")
-    fun getById(id: Long): Pokedex?
-
     @Query("SELECT * FROM pokedex")
     fun findAll(): List<Pokedex>
 
