@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_app.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.util.*
+import kotlin.random.Random
 
 class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
     private var pokemon = listOf<Pokemon>()
-    private var REQUEST_CADASTRO = 1
-    private var REQUEST_REMOVE= 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +49,43 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         recyclerPokedex?.layoutManager = LinearLayoutManager(context)
         recyclerPokedex?.itemAnimator = DefaultItemAnimator()
         recyclerPokedex?.setHasFixedSize(true)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        taskPokemom()
+    }
 
+    fun enviaNotificacao(pokemon: Pokemon) {
+        val intent = Intent(this, PokemonActivity::class.java)
+        intent.putExtra("pokemon", pokemon)
+        NotificationUtil.create(this, 1, intent, "Pokedex", "Nova iteração em  ${pokemon.name}")
+    }
+
+    fun taskPokemom() {
+        Thread {
+            this.pokemon = PokemonService.getPokemons(context)
+            runOnUiThread {
+                recyclerPokedex?.adapter = PokemonAdapter(pokemon) { onClickPokemon(it) }
+                enviaNotificacao(this.pokemon.get(0))
+            }
+        }.start()
+    }
+
+    fun taskSearchPokemon(url: String) {
+        Thread {
+            this.pokemon = PokemonService.getSearchPokemon(context, url)
+            runOnUiThread {
+                recyclerPokedex?.adapter = PokemonAdapter(pokemon) { onClickPokemon(it) }
+            }
+        }.start()
+    }
+
+    fun onClickPokemon(pokemon: Pokemon) {
+        Toast.makeText(context, "Clicou no Pokemon ${pokemon.name}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, PokemonActivity::class.java)
+        intent.putExtra("pokemon", pokemon)
+        startActivity(intent)
     }
 
     private fun configuraMenuLateral() {
@@ -63,7 +98,15 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_pokedex -> {
-                Toast.makeText(this, "Clicou Pokedex", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, MyPokedexActivity::class.java)
+                startActivityForResult(intent, 1)
+            }
+            R.id.nav_mapas -> {
+                val intent = Intent(context, MapasActivity::class.java)
+                startActivityForResult(intent, 1)
+            }
+            R.id.nav_sair -> {
+                finish()
             }
         }
         layoutMenuLateral.closeDrawer(GravityCompat.START)
@@ -75,12 +118,22 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // ação enquanto está digitando
+                if (newText == "") {
+                    return false
+                } else if (newText > "721") {
+                    return false
+                }
+                val url = "https://pokeapi.co/api/v2/pokemon/${newText}"
+                taskSearchPokemon(url)
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                // ação  quando terminou de buscar e enviou
+                if (query > "721") {
+                    return false
+                }
+                val url = "https://pokeapi.co/api/v2/pokemon/${query}"
+                taskSearchPokemon(url)
                 return false
             }
         })
@@ -93,7 +146,7 @@ class AppActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         if (id == R.id.action_buscar) {
             Toast.makeText(context, "Clicou em Buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
-            Toast.makeText(context, "Clicou em Atualizar", Toast.LENGTH_LONG).show()
+            taskPokemom()
         } else if (id == R.id.action_config) {
             val intent = Intent(context, ConfigActivity::class.java)
             startActivityForResult(intent, 1)

@@ -25,7 +25,7 @@ object NotificationUtil {
 
     fun create(contexto: Context, id: Int, intent: Intent, titulo: String, texto: String) {
 
-        createChannel(PokedexApplication.getInstance())
+        createChannel(PokeApplication.getInstance())
         val p = PendingIntent.getActivity(contexto, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(contexto, CHANNEL_ID)
@@ -36,7 +36,7 @@ object NotificationUtil {
             .setAutoCancel(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 
-        with(NotificationManagerCompat.from(PokedexApplication.getInstance())) {
+        with(NotificationManagerCompat.from(PokeApplication.getInstance())) {
             val n = builder.build()
             notify(id, n)
         }

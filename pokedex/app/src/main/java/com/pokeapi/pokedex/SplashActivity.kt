@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         animateSplash()
 
         //Temporizador SplashScreen
-        val maxSplashTime: Long = 5000
+        val maxSplashTime: Long = 500
 
         Handler().postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))

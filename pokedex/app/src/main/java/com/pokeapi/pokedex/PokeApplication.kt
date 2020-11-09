@@ -3,23 +3,21 @@ package com.pokeapi.pokedex
 import android.app.Application
 import java.lang.IllegalStateException
 
-class PokedexApplication: Application() {
+class PokeApplication: Application() {
+
     override fun onCreate() {
         super.onCreate()
         appInstance = this
     }
 
     companion object {
-        private var appInstance: PokedexApplication?  = null
-        fun getInstance(): PokedexApplication {
+        private var appInstance: PokeApplication? = null
+
+        fun getInstance(): PokeApplication {
             if (appInstance == null) {
-                throw IllegalStateException("Configurar application no Android Manifest")
+                throw IllegalStateException("Configurar application no manifest")
             }
             return appInstance!!
         }
-    }
-
-    override fun onTerminate() {
-        super.onTerminate()
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import java.io.IOException
 
 object HttpHelper {
@@ -15,8 +16,14 @@ object HttpHelper {
     var client = OkHttpClient()
 
     fun get(url:String): String {
-        Log.d(TAG, "HttpHelper.get: $url")
         val request = Request.Builder().url(url).get().build()
+        Log.d(TAG, request.toString())
+        return getJson(request)
+    }
+
+    fun post(url: String, json: String) : String {
+        val body = RequestBody.create(JSON, json)
+        val request = Request.Builder().url(url).post(body).build()
         return getJson(request)
     }
 
@@ -25,9 +32,9 @@ object HttpHelper {
         val body = response.body()
         if (body != null) {
             val json = body.string()
-            Log.d(TAG, "  << : $json")
             return json
         }
         throw IOException("Erro na requisição")
     }
+
 }

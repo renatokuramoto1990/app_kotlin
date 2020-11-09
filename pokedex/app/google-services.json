@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "45293248423",
+    "firebase_url": "https://pokedex-eaceb.firebaseio.com",
+    "project_id": "pokedex-eaceb",
+    "storage_bucket": "pokedex-eaceb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45293248423:android:271720355540f33960a082",
+        "android_client_info": {
+          "package_name": "com.pokeapi.pokedex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45293248423-39klnh3m00l4354mci4e9snnl6vgka5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD41-MJhiGIpNnBosgWoyhIrxySpvORlt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45293248423-39klnh3m00l4354mci4e9snnl6vgka5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

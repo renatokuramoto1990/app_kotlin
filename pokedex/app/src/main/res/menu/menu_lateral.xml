@@ -7,9 +7,15 @@
             android:title="Minha Pokedex"
             android:checked="true"/>
         <item
-            android:id="@+id/nav_ginasios"
+            android:id="@+id/nav_mapas"
             android:icon="@drawable/ic_buscar_white"
-            android:title="Ginásios"
+            android:title="Mapas"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/ic_buscar_white"
+            android:title="Sair"
             android:checked="true"/>
     </group>
 </menu>

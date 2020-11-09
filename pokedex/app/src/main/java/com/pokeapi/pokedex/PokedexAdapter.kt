@@ -1,5 +1,6 @@
 package com.pokeapi.pokedex
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +10,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import android.util.Log
 
 
-class PokemonAdapter(
-    var pokemons: List<Pokemon>,
-    val onClick: (Pokemon) -> Unit
-): RecyclerView.Adapter<PokemonAdapter.PokemonsViewHolder>() {
 
-    private var last = ""
-    class PokemonsViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class PokedexAdapter(
+    var pokemons: List<Pokedex>
+): RecyclerView.Adapter<PokedexAdapter.MyPokemonsViewHolder>() {
+
+    class MyPokemonsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val cardNome: TextView
         val cardImg : ImageView
         var cardProgress: ProgressBar
@@ -37,31 +36,23 @@ class PokemonAdapter(
     override fun getItemCount() = this.pokemons.size
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPokemonsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.adapter_pokemon,
             parent,
             false
         )
 
-        val holder = PokemonsViewHolder(view)
+        val holder = MyPokemonsViewHolder(view)
         return holder
     }
 
-
-    override fun onBindViewHolder(holder: PokemonsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyPokemonsViewHolder, position: Int) {
         val context = holder.itemView.context
-
-        Log.d("ADAPTER", last)
-        if(pokemons[position].next != null && pokemons[position].next != last) {
-            Thread {
-                this.pokemons += PokemonService.getMorePokemons(context, pokemons[position].next)
-                last = pokemons[position].next
-            }.start()
-        }
 
         val pokemon = pokemons[position]
 
+        Log.d("POK", pokemon.id)
         holder.cardNome.text = "${pokemon.name.toUpperCase()} - ${pokemon.id}"
         holder.cardProgress.visibility = View.VISIBLE
 
@@ -76,7 +67,5 @@ class PokemonAdapter(
                     holder.cardProgress.visibility = View.GONE
                 }
             })
-
-        holder.itemView.setOnClickListener {onClick(pokemon)}
     }
 }

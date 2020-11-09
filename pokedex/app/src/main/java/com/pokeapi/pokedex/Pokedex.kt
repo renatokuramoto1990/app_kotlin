@@ -1,15 +1,19 @@
 package com.pokeapi.pokedex
 
 import java.io.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class Pokemon : Serializable{
-    var name = ""
+@Entity(tableName = "pokedex")
+class Pokedex : Serializable{
+
+    @PrimaryKey
     var id = ""
+    var name = ""
     var abilities = ""
     var types = ""
     var weight = ""
     var image = ""
-    var next = ""
 
     override fun toString(): String {
         return "Pokemon(name='$name')"

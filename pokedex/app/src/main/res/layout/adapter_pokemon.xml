@@ -19,24 +19,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/cardUrl"
+            android:id="@+id/cardNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:textSize="20sp" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/cardImgPokemon"
+                android:id="@+id/cardImagem"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="250sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="6dp"/>
 
             <ProgressBar
-                android:id="@+id/cardProgressBar"
+                android:id="@+id/cardProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@android:style/Widget.ProgressBar.Small"
